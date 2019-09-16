@@ -6,4 +6,4 @@
 |Noura|Joudieh|Female|
 |Zeina|Joudieh|Female|
 
-[403]("./wwwroot/images/403.png")
+![403]("./wwwroot/images/403.png")
