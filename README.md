@@ -5,5 +5,3 @@
 |:---:|---|---|
 |Noura|Joudieh|Female|
 |Zeina|Joudieh|Female|
-
-("./wwwroot/images/403.png")
