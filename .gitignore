@@ -1,3 +1,3 @@
 *.txt
-/.vs
-/bin
+.vs/
+bin/
