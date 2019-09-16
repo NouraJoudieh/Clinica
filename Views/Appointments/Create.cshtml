@@ -1,0 +1,73 @@
+﻿@model Clinica.Models.Appointment
+@using Clinica.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject SignInManager<ClinicaUser> SignInManager
+@inject UserManager<ClinicaUser> UserManager
+@inject ApplicationDbContext context
+
+@{
+    ViewData["Title"] = "Create";
+    var roles = await context.Roles.Where(r => r.Name.Contains("Patient")).ToListAsync();
+    var Usernames = new List<string>();
+    var UserRole = new List<IdentityUserRole<string>>();
+    foreach (var role in roles)
+    {
+        UserRole = await context.UserRoles.Where(u => u.RoleId == role.Id).ToListAsync();
+    }
+    foreach (var userRole in UserRole)
+    {
+        var username = await context.Users.Where(u => u.Id == userRole.UserId).FirstOrDefaultAsync();
+        Usernames.Add(username.UserName);
+    }
+    ViewData["Patients"] = new SelectList(Usernames);
+
+    var Conroles = await context.Roles.Where(r => r.Name.Contains("Doctor")).ToListAsync();
+    var ConUsernames = new List<string>();
+    var ConUserRole = new List<IdentityUserRole<string>>();
+    foreach (var role in Conroles)
+    {
+        ConUserRole = await context.UserRoles.Where(u => u.RoleId == role.Id).ToListAsync();
+    }
+    foreach (var userRole in ConUserRole)
+    {
+        var Conusername = await context.Users.Where(u => u.Id == userRole.UserId).FirstOrDefaultAsync();
+        ConUsernames.Add(Conusername.UserName);
+    }
+    ViewData["Doctors"] = new SelectList(ConUsernames);
+}
+    <h1>Create</h1>
+
+    <h4>Appointment</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PatientId" class="control-label"></label>
+                    <select asp-for="PatientId" class="form-control" asp-items="ViewBag.Patients"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DoctorId" class="control-label"></label>
+                    <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.Doctors"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateTime" class="control-label"></label>
+                    <input asp-for="DateTime" class="form-control" />
+                    <span asp-validation-for="DateTime" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

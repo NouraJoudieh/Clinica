@@ -1,0 +1,96 @@
+﻿@model Users
+@using Clinica.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext context
+@{
+    /**
+     * (c) 2019 - Clinica
+     * @Author: Noura Joudieh
+     * @Desription: Quering the username from ClinicaUser, IdentityRole and UserRole table
+     * @Rating: 10/10 accourding to Hamza Jadid's standards
+     * @Date: 7/3/2019 6:15 p.m
+     */
+    var roles = await context.Roles.Where(r => r.Name.Contains("Doctor")).ToListAsync();
+    var Usernames = new List<string>();
+    var UserRole = new List<IdentityUserRole<string>>();
+    foreach (var role in roles)
+    {
+        UserRole = await context.UserRoles.Where(u => u.RoleId == role.Id).ToListAsync(); 
+    }
+    foreach (var userRole in UserRole) {
+        var username = await context.Users.Where(u => u.Id == userRole.UserId).FirstOrDefaultAsync();
+        Usernames.Add(username.UserName);
+    }
+    ViewData["DoctorId"] = new SelectList(Usernames);
+}
+
+<h4 class="text-center">Assistant</h4>
+<hr />
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="AddAssistant">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" required/>
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-6">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" required/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" required/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-4">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" required/>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="MiddleName" class="control-label"></label>
+                    <input asp-for="MiddleName" class="form-control" />
+                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-4">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" required/>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phonenb" class="control-label"></label>
+                <input asp-for="Phonenb" class="form-control" required/>
+                <span asp-validation-for="Phonenb" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <label asp-for="DoctorId" class="control-label"></label>
+                    <select asp-for="DoctorId" class="form-control" asp-items="ViewBag.DoctorId"></select>
+                </div>
+                <div class="form-group col-6">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <select class="custom-select">
+                        <option selected>Male</option>
+                        <option>Female</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

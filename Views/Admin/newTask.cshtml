@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Clinica.Models.Doctor>
+@using Clinica.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject SignInManager<ClinicaUser> SignInManager
+@inject UserManager<ClinicaUser> UserManager
+@inject ApplicationDbContext context
+<body>
+    <h1>:)</h1>
+    @{
+        var doctors = context.Doctor.Include(d => d.ClinicaUser).ToList();
+    }
+    <table>
+        @foreach (var item in doctors)
+        {
+            <tr>
+                <td>
+                    <h1> @Html.DisplayFor(k => item.ClinicaUser.UserName)</h1>
+                </td>
+            </tr>
+            var app = context.Appointment
+                    .Include(a => a.Patient)
+                        .ThenInclude(p => p.ClinicaUser)
+                    .Where(a => a.DoctorId.Contains(item.Id)).ToList();
+            @foreach (var i in app)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(j => i.Patient.ClinicaUser.UserName)
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</body>

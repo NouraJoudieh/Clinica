@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Clinica.Models.Patient>
+@using Clinica.Data
+@inject ApplicationDbContext context
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="text-center">
+    <h2>
+        Dr. @User.Identity.Name
+    </h2>
+    <hr />
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Doctors</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Middle Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Birthdate
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Insurance Company Name
+                        </th>
+                        <th>
+                            Blood Type
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.MiddleName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Birthdate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.PhoneNumber)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InsuranceCompany.ClinicaUser.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BloodType)
+                            </td>
+
+
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit <i class="far fa-edit"></i></a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

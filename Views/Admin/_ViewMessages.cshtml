@@ -1,0 +1,91 @@
+﻿@using Clinica.Data
+@inject ApplicationDbContext context
+
+@{
+    var messages = context.Messages.ToList();
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Subject
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 0;
+            string color = "";
+        }
+        @foreach (var item in messages)
+        {
+            if (counter++ % 2 == 0)
+            {
+                color = "#F5F5F5";
+            }
+            else
+            {
+                color = "";
+            }
+            <tr style="background-color: @color;">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.Id" data-whatever="getbootstrap">View</button>
+                    <div class="modal fade" id="@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title" id="exampleModalLabel">Message Details</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="message-subject" class="col-form-label">
+                                            <i><b>Subject:</b></i> @Html.DisplayFor(modelItem => item.Subject)
+                                        </label>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label for="message-email" class="col-form-label">
+                                            <i><b>From:</b></i> @Html.DisplayFor(modelItem => item.Email)
+                                        </label>
+                                    </div>
+                                    <hr />
+                                    <div class="form-group">
+                                        <label for="message-body" class="col-form-label">
+                                            <i><b>Message Body:</b></i><br /><br />
+                                            @Html.DisplayFor(modelItem => item.Body)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

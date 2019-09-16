@@ -1,0 +1,44 @@
+﻿@model Users
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<head>
+    <link rel='stylesheet' href='~/vendor/fontawesome-free/css/all.min.css'>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h2>Assistant @User.Identity.Name</h2>
+            <hr />
+        </div>
+        <div class='menu'>
+            <input class='toggle' id='menu' type='checkbox'>
+            <label class='style' for='menu' style="background-color: #007bff;">
+                <i class="fas fa-user-nurse"></i>
+            </label>
+            <a class='tab' href='/Patients/Create' style="background-color: #80aaff;" data-toggle="tooltip" data-placement="bottom" title="Add Patient">
+                <p><i class="fas fa-plus align-top"></i><i class="fas fa-user-injured"></i></p>
+            </a>
+            <a class='tab' href='/Consultations/Create' style="background-color: #4d88ff;" data-toggle="tooltip" data-placement="bottom" title="Add Consultation">
+                <p><i class="fas fa-notes-medical"></i></p>
+            </a>
+            <a class='tab' href='/Patients/ViewPatients' style="background-color: #1a66ff;" data-toggle="tooltip" data-placement="bottom" title="View Patients">
+                <p><i class="far fa-eye"></i><i class="fas fa-user-injured"></i></p>
+            </a>
+            <a class='tab' href='/Consultations/' style="background-color: #004de6;" data-toggle="tooltip" data-placement="bottom" title="View Consultations">
+                <p><i class="fas fa-print"></i></p>
+            </a>
+            <a class='tab' href='/Appointments/' style="background-color: #003cb3;" data-toggle="tooltip" data-placement="bottom" title="View Appointments">
+                <p><i class="fas fa-calendar-day"></i></p>
+            </a>
+            <a class='tab' href='/Appointments/Create' style="background-color: #002b80;" data-toggle="tooltip" data-placement="bottom" title="Create an Appointment">
+                <p><i class="fas fa-plus align-top"></i> <i class="fas fa-calendar-day"></i></p>
+            </a>
+        </div>
+    </div>
+</body>
+<!-- Generate the Report from the Consultation -->

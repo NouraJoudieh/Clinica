@@ -1,0 +1,150 @@
+﻿@model Users
+@using Clinica.Data
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inject SignInManager<ClinicaUser> SignInManager
+@inject UserManager<ClinicaUser> UserManager
+@inject ApplicationDbContext context
+@{
+    var roles = await context.Roles.Where(r => r.Name.Contains("InsuranceCompany")).ToListAsync();
+    var Usernames = new List<string>();
+    var UserRole = new List<IdentityUserRole<string>>();
+    foreach (var role in roles)
+    {
+        UserRole = await context.UserRoles.Where(u => u.RoleId == role.Id).ToListAsync();
+    }
+    foreach (var userRole in UserRole)
+    {
+        var username = await context.Users.Where(u => u.Id == userRole.UserId).FirstOrDefaultAsync();
+        Usernames.Add(username.UserName);
+    }
+    ViewData["ICId"] = new SelectList(Usernames);
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Custom fonts for this template-->
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<h1>Create</h1>
+
+<h4 class="text-center">Patient</h4>
+<hr />
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label asp-for="@Model.UserName" class="control-label"></label>
+                                <input asp-for="@Model.UserName" class="form-control" required/>
+                                <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="@Model.Email" class="control-label"></label>
+                                <input asp-for="@Model.Email" class="form-control" required/>
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" class="form-control" required/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label asp-for="@Model.FirstName" class="control-label"></label>
+                                <input asp-for="@Model.FirstName" class="form-control" required/>
+                                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="@Model.MiddleName" class="control-label"></label>
+                                <input asp-for="@Model.MiddleName" class="form-control" />
+                                <span asp-validation-for="@Model.MiddleName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-4">
+                                <label asp-for="@Model.LastName" class="control-label"></label>
+                                <input asp-for="@Model.LastName" class="form-control" required/>
+                                <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label asp-for="@Model.Phonenb" class="control-label"></label>
+                                <input asp-for="@Model.Phonenb" class="form-control" required />
+                                <span asp-validation-for="@Model.Phonenb" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-6">
+                                <label asp-for="@Model.Mobile" class="control-label"></label>
+                                <input asp-for="@Model.Mobile" class="form-control" required />
+                                <span asp-validation-for="@Model.Mobile" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="InsuranceCompanyId" class="control-label"></label>
+                            <select asp-for="InsuranceCompanyId" class="form-control" asp-items="ViewBag.ICId"></select>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-2">
+                                <label asp-for="Gender" class="control-label"></label>
+                                <select asp-for="Gender" class="custom-select">
+                                    <option selected>Male</option>
+                                    <option>Female</option>
+                                </select>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-3">
+                                <label asp-for="Birthdate" class="control-label"></label>
+                                <input asp-for="Birthdate" class="form-control" required/>
+                                <span asp-validation-for="Birthdate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-2">
+                                <label asp-for="BloodType" class="control-label"></label>
+                                <select asp-for="BloodType" class="custom-select">
+                                    <option selected>AB+</option>
+                                    <option>AB-</option>
+                                    <option>A+</option>
+                                    <option>A-</option>
+                                    <option>B+</option>
+                                    <option>B-</option>
+                                    <option>O+</option>
+                                    <option>O-</option>
+                                </select>
+                                <span asp-validation-for="BloodType" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control" required/>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

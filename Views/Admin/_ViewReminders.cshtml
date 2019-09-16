@@ -1,0 +1,44 @@
+﻿@using Clinica.Data
+@inject ApplicationDbContext context
+
+@{
+    var reminders = context.Reminder.ToList();
+}
+<style>
+    .fabutton {
+        background: none;
+        padding: 0px;
+        border: none;
+        align-content: flex-end;
+    }
+</style>
+<div class="container col-8 text-center">
+    <a href="/Reminders/Create">
+        <i class="fas fa-plus-circle fa-3x" style=" color:cornflowerblue;"></i>
+    </a>
+    <br />
+    <br />
+
+    @foreach (var item in reminders)
+    {
+        <div class="card">
+            <div class="card-header d-flex bg-@item.Priority">
+                @Html.DisplayFor(modelItem => item.Title)
+                <div class="align-self-start mx-auto">
+                    <a asp-action="DeleteReminder" asp-route-id="@item.Id">
+                        <button type="submit" class="fabutton">
+                            <i class="fas fa-trash-alt ml-auto"></i>
+                        </button>
+                    </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <b><i>Due Date:</i></b> &nbsp;@Html.DisplayFor(modelItem => item.DateTime)
+                <hr />
+                <b><i>Content:</i></b> &nbsp;@Html.DisplayFor(modelItem => item.Content)
+            </div>
+        </div>
+        <br />
+    }
+</div>

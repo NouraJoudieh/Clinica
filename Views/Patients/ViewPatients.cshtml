@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Clinica.Models.Patient>
+
+@{
+    ViewData["Title"] = "View Patients";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Patients</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ClinicaUser.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ClinicaUser.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gender)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Birthdate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.BloodType)
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Birthdate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BloodType)
+                            </td>
+
+
+                            <td>
+                                <a asp-controller="Patients" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-controller="Patients" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-controller="Patients" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

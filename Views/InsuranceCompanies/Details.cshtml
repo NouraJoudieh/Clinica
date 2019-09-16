@@ -1,0 +1,38 @@
+﻿@model Clinica.Models.Reports
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>InsuranceCompany</h4>
+    <hr />
+    <form asp-action="Edit">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+            <br />
+            <dt>
+                @Html.DisplayNameFor(model => model.Consultation.InsuranceConfirmation)
+            </dt>
+            <dd>
+                <select asp-for="Consultation.InsuranceConfirmation">
+                    <option>Yes</option>
+                    <option>No</option>
+                </select>
+            </dd>
+        </dl>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

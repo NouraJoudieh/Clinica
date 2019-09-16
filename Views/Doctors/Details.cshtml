@@ -1,0 +1,84 @@
+﻿@model Clinica.Models.Doctor
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Doctor</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicaUser.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClinicaUser.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicaUser.MiddleName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClinicaUser.MiddleName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicaUser.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClinicaUser.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicaUser.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClinicaUser.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClinicaUser.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClinicaUser.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Speciality)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Speciality)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AvailableFrom)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AvailableFrom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AvailableTo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AvailableTo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.About)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.About)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,72 @@
+﻿@model Users
+@using Clinica.Data
+@using Microsoft.EntityFrameworkCore
+@inject ApplicationDbContext context
+
+@{
+
+    var InsuranceCompanies = context.InsuranceCompany.Include(u => u.ClinicaUser).ToList();
+}
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Insurance Companies</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Fax
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int counter = 0;
+                        string color = "";
+                    }
+                    @foreach (var item in InsuranceCompanies)
+                    {
+                        if (counter++ % 2 == 0)
+                        {
+                            color = "#F5F5F5";
+                        }
+                        else
+                        {
+                            color = "";
+                        }
+                        <tr style="background-color: @color;">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ClinicaUser.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fax)
+                            </td>
+                            <td>
+                                <a asp-action="_EditInsuranceCompany" asp-route-id="@item.Id">Edit <i class="far fa-edit"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

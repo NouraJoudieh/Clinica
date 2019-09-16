@@ -1,0 +1,189 @@
+﻿@model Users
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Custom fonts for this template-->
+    <link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Clinica Admin</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Register a User
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#addDoc" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-user-md"></i>
+                    <span>Doctor</span>
+                </a>
+
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#addAssistant" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-user-nurse"></i>
+                    <span>Assistant</span>
+                </a>
+
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#addIC" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <span>Insurance Company</span>
+                </a>
+
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                View
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#viewUsers" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-users"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#viewMessages" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="far fa-envelope"></i>
+                    <span>Messages</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#viewReminders" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Reminders</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#collapseTwo" data-toggle="collapse" data-target="#newTask" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>new Task</span>
+                </a>
+            </li>
+
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+            <div id="accordionSidebar">
+                <div id="empty" class="panel-collapse collapse in show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded text-center">
+                        <br /><br /><br /><br /><br />
+                        <h3>I wish you're having a great day</h3>
+                        <i class="fas fa-grin-hearts fa-10x rotate-n-15" style="color: cornflowerblue;"></i>
+                    </div>
+                </div>
+                <div id="addDoc" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @await Html.PartialAsync("_AddDoc", Model)
+                    </div>
+                </div>
+                <div id="addAssistant" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @await Html.PartialAsync("_AddAssistant", Model)
+                    </div>
+                </div>
+                <div id="addIC" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @await Html.PartialAsync("_AddInsuranceCompany", Model)
+                    </div>
+                </div>
+                <div id="viewUsers" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <partial name="_EditChoice">
+                    </div>
+                </div>
+                <div id="viewMessages" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <partial name="_ViewMessages">
+                    </div>
+                </div>
+                <div id="viewReminders" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <partial name="_ViewReminders">
+                    </div>
+                </div>
+                <div id="newTask" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+    </div>
+    <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>
